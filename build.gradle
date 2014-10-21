@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        //Required repos
+        mavenCentral()
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+        maven { url "http://repo.spring.io/libs-releases" }
+    }
+    dependencies {
+        //Required dependency for spring-boot plugin
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.2.0.BUILD-SNAPSHOT"
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+war {
+    baseName = 'Symptoms'
+    version = '0.1'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+//    compile 'org.springframework.data:spring-data-rest-core:2.2.0.RELEASE'
+//    compile("org.springframework.data:spring-data-mongodb:1.2.0.RELEASE")
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile 'org.springframework.data:spring-data-rest-webmvc'
+
+    testCompile 'junit:junit'
+
+    //Required dependency for JSP
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-jasper'
+}
